@@ -1,10 +1,10 @@
 const express = require('express');
-const { deletePost } = require('../controllers/postControllers');
+const { deletePost, createPost } = require('../controllers/postControllers');
 
 const router = express.Router();
 
 
-
+router.post('/createPost', createPost)
 router.delete('/posts/:id', deletePost)
 
-module.exports = router;
+module.exports = router;    

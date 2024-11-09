@@ -1,7 +1,5 @@
 const Joi = require('joi');
 
-
-
 const validateUser = (user) => {
     const schema = Joi.object({
         name: Joi.string().min(3).required(),
@@ -13,7 +11,7 @@ const validateUser = (user) => {
     }
 
 
-const validatePost = (post) => {
+function validatePost (post) {
     const schema = Joi.object({
         title: Joi.string().min(3).required(),
         content: Joi.string().min(6).required(),
@@ -22,4 +20,9 @@ const validatePost = (post) => {
     return schema.validate(post);
     }
 
-module.exports = { validateUser, validatePost }
+// module.exports = { validateUser, validatePost }
+
+module.exports = {
+    validateUser: validateUser,
+    validatePost: validatePost,
+}
