@@ -17,8 +17,23 @@ const post = [
         title: 'Post 4',
         content: 'This is the fourth port'
     },
+  {
+        id: 5,
+        title: 'Post 5',
+        content: 'This is the fifth post'
+    }
+
 ]
 
-const createPost = async (req, res) => {
-    res.send('Hello New Post');
+
+
+const deletePost = async (req, res) => {
+    const postId = req.params.id;
+    const postIndex = await post.findIndex((post) => post.id == postId);
+    if (postIndex > -1) {
+        post.splice(postIndex, 1);
+        res.send('Post deleted');
+    } else {
+        res.send('Post not found');
+    }
 }
