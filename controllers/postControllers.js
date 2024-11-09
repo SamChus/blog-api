@@ -51,8 +51,6 @@ const createPost = async (req, res) => {
         content,
     };
     post.push(newPost);
-    res.status(201).json(newPost);
-
     res.status(201).send({
             message: "Post added successfully",
             data: newPost,
