@@ -13,10 +13,16 @@ const post = [
         content: 'This is the second post'
     },
     {
+        id: 4,
+        title: 'Post 4',
+        content: 'This is the fourth port'
+    },
+  {
         id: 5,
         title: 'Post 5',
         content: 'This is the fifth post'
     }
+
 ]
 
 
