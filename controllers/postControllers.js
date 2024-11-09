@@ -26,11 +26,6 @@ const post = [
         id: 5,
         title: 'Post 5',
         content: 'This is the fifth post'
-    },
-    {
-        id: 6,
-        title: 'Post 6',
-        content: 'This is the sixth post'
     }
 
 ]
