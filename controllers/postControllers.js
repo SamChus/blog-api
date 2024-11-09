@@ -11,6 +11,11 @@ const post = [
         id: 2,
         title: 'Post 2',
         content: 'This is the second post'
+    },
+    {
+        id: 5,
+        title: 'Post 5',
+        content: 'This is the fifth post'
     }
 ]
 
