@@ -42,3 +42,7 @@ const deletePost = async (req, res) => {
         res.send('Post not found');
     }
 }
+
+module.exports = {
+    deletePost
+}
