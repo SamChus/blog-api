@@ -1,5 +1,8 @@
 const express = require("express")
 const logger = require('./middlewares/logger')
+const userRoutes = require("./routes/userRoutes")
+
+const port = process.env.PORT || 5000
 
 
 const app = express()
@@ -7,12 +10,11 @@ const app = express()
 app.use(express.json())
 app.use(logger)
 
-app.get("/", (req, res)=> {
-    res.send("Hello world")
-})
+app.use("/api", userRoutes)
 
 
 
-app.listen(5000, () => {
-    console.log("Listening at port 5000")
+
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`)
 })
