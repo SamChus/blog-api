@@ -1,4 +1,5 @@
-const validatePost = require("/.utils/validation")
+const {validatePost} = require("../utils/validation")
+
 
 
 const post = [
@@ -37,7 +38,7 @@ const post = [
 
 const createPost = async (req, res) => {
 
-    const {error} = validatePost(req.body);
+    const {error} = validatePost(res.body)
     if (error) {
         return res.status(400).send({
             message: error.details[0].message,
@@ -45,11 +46,11 @@ const createPost = async (req, res) => {
     }
     const {title, content} = req.body;
     const newPost = {
-        id: list.length + 1,
+        id: post.length + 1,
         title,
         content,
     };
-    list.push(newPost);
+    post.push(newPost);
     res.status(201).json(newPost);
 
     res.status(201).send({
@@ -71,5 +72,6 @@ const deletePost = async (req, res) => {
 }
 
 module.exports = {
+    createPost,
     deletePost
 }
