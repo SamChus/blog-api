@@ -33,8 +33,29 @@ const post = [
         content: 'This is the sixth post'
     }
 
-]
+];
 
+app.get("/", (req, res) =>{
+    res.send(post);
+})
+
+app.get("/posts/:id", (req, res) =>{
+    const id = req.params.id;
+
+    const posts = post.find((p) => p.id === parseInt(id));
+
+    if(posts) {
+        res.status(200).send({
+            message: "Post retrieved successfully",
+            data: post,
+            date: new Date().toLocaleTimeString(),
+        });
+    }else{
+        res.status(404).send({
+            message: "Oops we couldn't find the post you are looking for!"
+        });
+    }
+})
 
 
 const deletePost = async (req, res) => {
