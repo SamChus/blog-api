@@ -33,7 +33,8 @@ const post = [
 
 const createPost = async (req, res) => {
 
-    const {error} = validatePost(res.body)
+    const {error, value} = validatePost(req.body)
+    
     if (error) {
         return res.status(400).send({
             message: error.details[0].message,
@@ -65,6 +66,38 @@ const deletePost = async (req, res) => {
         res.send('Post not found');
     }
 }
+
+
+const updatePost = (req, res) => {
+        const id = parseInt(req.params.id);
+
+        const {error} = validatePost(req.body);
+
+        if (error) {
+            return res.status(400).send({
+                message: error.details[0].message,
+            });
+        }
+
+        const {title, content} = req.body;
+
+        const item = post.find((item) => item.id === id);
+
+        if (item) {
+            item.title = title;
+            item.content = content;
+
+            res.status(200).send({
+                message: "item updated successfully",
+                data: item,
+                date: new Date().toLocaleTimeString(),
+            })
+        }else {
+            res.status(404).send({
+                message: "item not found"
+            })
+        }
+    }
 
 module.exports = {
     createPost,
