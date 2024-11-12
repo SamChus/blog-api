@@ -29,7 +29,30 @@ const post = [
         content: 'This is the fifth post'
     }
 
-]
+];
+
+const getAllPost = (req, res) =>{
+    res.send(post);
+}
+
+const getSinglePost = (req, res) =>{
+    const id = req.params.id;
+
+    const posts = post.find((p) => p.id === parseInt(id));
+
+    if(posts) {
+        res.status(200).send({
+            message: "Post retrieved successfully",
+            data: posts,
+            date: new Date().toLocaleTimeString(),
+        });
+    }else{
+        res.status(404).send({
+            message: "Oops we couldn't find the post you are looking for!"
+        });
+    }
+}
+
 
 const createPost = async (req, res) => {
 
@@ -46,8 +69,6 @@ const createPost = async (req, res) => {
         content,
     };
     post.push(newPost);
-    res.status(201).json(newPost);
-
     res.status(201).send({
             message: "Post added successfully",
             data: newPost,
@@ -66,7 +87,34 @@ const deletePost = async (req, res) => {
     }
 }
 
+
+const updatePost = (req, res) => {
+        const id = parseInt(req.params.id);
+        const {title, content} = req.body;
+
+        const item = post.find((item) => item.id === id);
+
+        if (item) {
+            item.title = title;
+            item.content = content;
+
+            res.status(200).send({
+                message: "item updated successfully",
+                data: item,
+                date: new Date().toLocaleTimeString(),
+            })
+        }else {
+            res.status(404).send({
+                message: "item not found"
+            })
+        }
+    }
+
 module.exports = {
     createPost,
-    deletePost
+    deletePost,
+    getAllPost, 
+    getSinglePost,
+    updatePost
 }
+
