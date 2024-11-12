@@ -92,9 +92,34 @@ const deletePost = async (req, res) => {
     }
 }
 
+
+const updatePost = (req, res) => {
+        const id = parseInt(req.params.id);
+        const {title, content} = req.body;
+
+        const item = post.find((item) => item.id === id);
+
+        if (item) {
+            item.title = title;
+            item.content = content;
+
+            res.status(200).send({
+                message: "item updated successfully",
+                data: item,
+                date: new Date().toLocaleTimeString(),
+            })
+        }else {
+            res.status(404).send({
+                message: "item not found"
+            })
+        }
+    }
+
 module.exports = {
     createPost,
     deletePost,
     getAllPost, 
-    getSinglePost
+    getSinglePost,
+    updatePost
 }
+
