@@ -1,3 +1,4 @@
+const {validatePost} = require("../utils/validation")
 
 
 
@@ -35,11 +36,11 @@ const post = [
 
 ];
 
-app.get("/", (req, res) =>{
+const getAllPost = (req, res) =>{
     res.send(post);
-})
+}
 
-app.get("/posts/:id", (req, res) =>{
+const getSinglePost = (req, res) =>{
     const id = req.params.id;
 
     const posts = post.find((p) => p.id === parseInt(id));
@@ -47,7 +48,7 @@ app.get("/posts/:id", (req, res) =>{
     if(posts) {
         res.status(200).send({
             message: "Post retrieved successfully",
-            data: post,
+            data: posts,
             date: new Date().toLocaleTimeString(),
         });
     }else{
@@ -55,8 +56,30 @@ app.get("/posts/:id", (req, res) =>{
             message: "Oops we couldn't find the post you are looking for!"
         });
     }
-})
+}
 
+
+const createPost = async (req, res) => {
+
+    const {error} = validatePost(res.body)
+    if (error) {
+        return res.status(400).send({
+            message: error.details[0].message,
+        })
+    }
+    const {title, content} = req.body;
+    const newPost = {
+        id: post.length + 1,
+        title,
+        content,
+    };
+    post.push(newPost);
+    res.status(201).send({
+            message: "Post added successfully",
+            data: newPost,
+            date: new Date().toLocaleTimeString(),
+        });
+}
 
 const deletePost = async (req, res) => {
     const postId = req.params.id;
@@ -67,4 +90,11 @@ const deletePost = async (req, res) => {
     } else {
         res.send('Post not found');
     }
+}
+
+module.exports = {
+    createPost,
+    deletePost,
+    getAllPost, 
+    getSinglePost
 }
