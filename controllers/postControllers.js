@@ -27,11 +27,6 @@ const post = [
         id: 5,
         title: 'Post 5',
         content: 'This is the fifth post'
-    },
-    {
-        id: 6,
-        title: 'Post 6',
-        content: 'This is the sixth post'
     }
 
 ];
@@ -61,7 +56,8 @@ const getSinglePost = (req, res) =>{
 
 const createPost = async (req, res) => {
 
-    const {error} = validatePost(res.body)
+    const {error, value} = validatePost(req.body)
+    
     if (error) {
         return res.status(400).send({
             message: error.details[0].message,
@@ -95,6 +91,15 @@ const deletePost = async (req, res) => {
 
 const updatePost = (req, res) => {
         const id = parseInt(req.params.id);
+
+        const {error} = validatePost(req.body);
+
+        if (error) {
+            return res.status(400).send({
+                message: error.details[0].message,
+            });
+        }
+
         const {title, content} = req.body;
 
         const item = post.find((item) => item.id === id);

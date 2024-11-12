@@ -12,6 +12,8 @@ const validateUser = (user) => {
 
 
 function validatePost (post) {
+    console.log("Post",post);
+    
     const schema = Joi.object({
         title: Joi.string().min(3).required(),
         content: Joi.string().min(6).required(),

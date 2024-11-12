@@ -6,10 +6,10 @@ const router = express.Router();
 
 
 router.post('/createPost', createPost)
-router.delete('/posts/:id', deletePost)
-router.put('/posts/:id', updatePost)
+router.delete('/:id', deletePost)
+router.put('/:id', updatePost)
 router.get('/allpost', getAllPost)
-router.get('/posts/:id', getSinglePost)
+router.get('/:id', getSinglePost)
 
 
 module.exports = router;    
