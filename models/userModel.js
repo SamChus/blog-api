@@ -28,12 +28,13 @@ const userSchema = new mongoose.Schema({
     posts: [
         Post.schema // Embedding a document (Denormalization) - FOR QUERY PERFORMANCE
     ],
-
+    isAdmin: Boolean,
+    profilePicture: String        
 }, {timestamps: true});
 
 //Generate token
 userSchema.methods.generateToken = function () {
-    const token = jwt.sign({id: this._id}, process.env.JWT_SECRET);
+    const token = jwt.sign({id: this._id, admin: this.isAdmin}, process.env.JWT_SECRET);
     return token;
 }
 

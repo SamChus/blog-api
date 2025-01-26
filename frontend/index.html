@@ -36,7 +36,7 @@
 
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
-                fetch('http://localhost:5000/api/register', {
+                fetch('http://socialmedia-u04c.onrender.com/api/register', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -51,7 +51,25 @@
                 }).then(response => response.json())
                 .then(data => {
                     alert(data.message);
-                    console.log(data);
+                    // verify email starts here
+                    fetch('http://socialmedia-u04c.onrender.com/api/verify-email', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            email: email.value,
+                            password: password.value,
+                        })
+                    }).then(response => response.json())
+                    .then(data => {
+                    window.location.href = 'verifymsg.html';
+                    }).catch(error => {
+                        alert('An error occured. Please try again later.');
+                        console.log(error);
+                    });
+                    
+                    // verify email ends here
                 }).catch(error => {
                     alert('An error occured. Please try again later.');
                     console.log(error);

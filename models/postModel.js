@@ -47,7 +47,10 @@ const postSchema = new mongoose.Schema({
     likes: {
         type: Number,
         default: 0,
-    }
+    },
+    images: [{
+        type: String,
+    }],
 }, {timestamps: true});
 
 const Post = mongoose.model('Post', postSchema);
